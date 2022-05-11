@@ -4,9 +4,9 @@ const { ccclass, property } = _decorator;
 
 
 @ccclass('ScreenBase')
-export class ScreenBase extends Component {
+export abstract class ScreenBase extends Component {
 
-    onShow() { this.node.active = true };
-    onHide() { this.node.active = false };
+    abstract onShow(data: any);
+    abstract onHide();
 
 }

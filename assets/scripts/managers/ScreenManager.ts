@@ -12,12 +12,7 @@ export class ScreenManager extends Component {
 
     private currentScreen: ScreenName = ScreenName.None;
 
-    onLoad() {
-        if (!this.screensList.length)
-            this.screensList = this.getComponentsInChildren(ScreenBase);
-    }
-
-    startScreen(screenName: ScreenName) {
+    startScreen(screenName: ScreenName, data?: any) {
         if (this.currentScreen === screenName)
             return;
         if (!this.screensList[screenName]) {
@@ -26,18 +21,27 @@ export class ScreenManager extends Component {
         }
 
         console.log("this.currentScreen", this.currentScreen);
-
-        try {
+        console.trace()
+        if (this.screensList[this.currentScreen]) {
             this.screensList[this.currentScreen].onHide();
-        } catch (err) {
-            console.error(err);
+            setTimeout(() => {
+                this.screensList[this.currentScreen].node.active = false;
+                this.currentScreen = screenName;
+
+                if (this.screensList[screenName]) {
+                    this.screensList[screenName].node.active = true;
+                    this.screensList[screenName].onShow(data);
+                }
+            }, 500);
+        }
+        else {
+            this.currentScreen = screenName;
+
+            if (this.screensList[screenName]) {
+                this.screensList[screenName].node.active = true;
+                this.screensList[screenName].onShow(data);
+            }
         }
 
-        try {
-            this.currentScreen = screenName;
-            this.screensList[screenName].onShow();
-        } catch (err) {
-            console.error(err);
-        }
     }
 }

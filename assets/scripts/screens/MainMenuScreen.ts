@@ -1,6 +1,8 @@
 
 import { _decorator, Component, Node } from 'cc';
 import { ScreenBase } from '../component/ScreenBase';
+import { ScreenName } from '../global/GameConstants';
+import { GameManager } from '../managers/GameManager';
 const { ccclass, property } = _decorator;
 
 
@@ -8,10 +10,12 @@ const { ccclass, property } = _decorator;
 export class MainMenuScreen extends ScreenBase {
 
     onShow() {
-        super.onShow();
     }
     onHide() {
-        super.onHide();
+    }
+
+    onStartButtonClick() {
+        GameManager.instance.screenManager.startScreen(ScreenName.GamePlay, { isRestart: false });
     }
 
 

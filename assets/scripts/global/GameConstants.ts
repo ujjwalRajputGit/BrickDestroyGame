@@ -6,10 +6,4 @@ export enum ScreenName {
     None = 100,
 }
 
-export enum GameState {
-    None,
-    Start,
-    Pause,
-    Resume,
-    End
-}
+export const InitialBallVelocity = 30;
